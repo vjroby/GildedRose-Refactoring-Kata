@@ -1,6 +1,6 @@
 package com.gildedrose
 
-case class GildedRose(val items: Array[Item]) {
+ class GildedRose(val items: Array[Item]) {
 
 
   def updateQuality() {

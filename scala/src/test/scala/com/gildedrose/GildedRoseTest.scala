@@ -86,7 +86,7 @@ class GildedRoseTest  extends AnyFlatSpec with Matchers {
       }
 
   private def addItemsAndUpdate(items:Item*):GildedRose = {
-    val app = GildedRose(items.toArray)
+    val app = new GildedRose(items.toArray)
     app.updateQuality()
     app
   }
