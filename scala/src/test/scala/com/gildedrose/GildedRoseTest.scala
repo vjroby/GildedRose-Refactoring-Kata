@@ -33,7 +33,6 @@ class GildedRoseTest  extends AnyFlatSpec with Matchers {
         app.items(0).quality shouldBe 2
       }
 
-
       it should "'Aged Brie' actually increases in quality by 2 the older it gets, after the sell in" in {
         val app = addItemsAndUpdate(item(brie, -1, 1))
         app.items(0).sellIn shouldBe -2
@@ -59,7 +58,6 @@ class GildedRoseTest  extends AnyFlatSpec with Matchers {
         app.items(0).quality shouldBe 12
       }
 
-
       it should "'Backstage passes' increases in Quality as it’s SellIn value approaches whole flow" in {
         val app = addItemsAndUpdate(item(passes, 10, 11))
         (1 to 9).foreach(_ => app.updateQuality())
@@ -83,6 +81,14 @@ class GildedRoseTest  extends AnyFlatSpec with Matchers {
       it should "'Backstage passes' quality drops to 0 after the concert" in {
         val app = addItemsAndUpdate(item(passes, 0, 13))
         app.items(0).sellIn shouldBe -1
+        app.items(0).quality shouldBe 0
+      }
+
+      it should "'Backstage passes' quality drops to 0 after the concert and remains 0" in {
+        val app = addItemsAndUpdate(item(passes, 0, 13))
+        app.updateQuality()
+        app.updateQuality()
+        app.items(0).sellIn shouldBe -3
         app.items(0).quality shouldBe 0
       }
 
