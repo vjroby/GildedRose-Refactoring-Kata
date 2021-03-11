@@ -43,6 +43,7 @@ class GildedRoseTest  extends AnyFlatSpec with Matchers {
       it should "The Quality of an item is never more than 50" in {
         val app = addItemsAndUpdate(item(brie, 1, 49))
         app.updateQuality()
+        app.updateQuality()
         app.items(0).quality shouldBe 50
       }
 
@@ -83,6 +84,26 @@ class GildedRoseTest  extends AnyFlatSpec with Matchers {
         val app = addItemsAndUpdate(item(passes, 0, 13))
         app.items(0).sellIn shouldBe -1
         app.items(0).quality shouldBe 0
+      }
+
+      it should "Process multiple items and keep order" in {
+        val app = addItemsAndUpdate(
+          item(brie,4,10),
+          item(sulfuras,6,10),
+          item("my item",10,9))
+
+        app.items(0).name shouldBe (brie)
+        app.items(0).sellIn shouldBe 3
+        app.items(0).quality shouldBe 11
+
+        app.items(1).name shouldBe (sulfuras)
+        app.items(1).sellIn shouldBe 6
+        app.items(1).quality shouldBe 10
+
+        app.items(2).name shouldBe ("my item")
+        app.items(2).sellIn shouldBe 9
+        app.items(2).quality shouldBe 8
+
       }
 
   private def addItemsAndUpdate(items:Item*):GildedRose = {
