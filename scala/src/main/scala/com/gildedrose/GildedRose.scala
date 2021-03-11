@@ -21,9 +21,9 @@ object GItem{
     case Passes(sellIn,quality) if sellIn >10  =>  Passes( sellIn -1, quality + 1)
     case Passes(sellIn,quality) if sellIn <=10 && sellIn >5 =>  Passes( sellIn -1, quality + 2)
     case Passes(sellIn,quality) if sellIn <=5 && sellIn >0 =>  Passes( sellIn -1, quality + 3)
-    case Passes(sellIn,quality) if sellIn <=0  =>  Passes( sellIn -1, 0)
+    case Passes(sellIn,_) if sellIn <=0  =>  Passes( sellIn -1, 0)
     case Sulfuras(sellIn,quality) =>  Sulfuras(sellIn, quality)
-    case Conjured(sellIn,quality) =>  Conjured(sellIn, quality -2)
+    case Conjured(sellIn,quality) =>  Conjured(sellIn -1, quality -2)
   }
   def fromItem(item: Item):GItem = item.name match {
     case "Aged Brie" => Brie(item.sellIn,item.quality)
