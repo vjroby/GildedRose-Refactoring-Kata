@@ -103,8 +103,22 @@ class GildedRoseTest  extends AnyFlatSpec with Matchers {
         app.items(2).name shouldBe ("my item")
         app.items(2).sellIn shouldBe 9
         app.items(2).quality shouldBe 8
-
       }
+
+    it should "'Conjured' items degrade in Quality twice as fast as normal items" in {
+      val app = addItemsAndUpdate(item("Conjured", 10, 6))
+
+      app.items(0).sellIn shouldBe 9
+      app.items(0).quality shouldBe 4
+    }
+
+    it should "'Conjured' items degrade in Quality twice but not less then 0" in {
+      val app = addItemsAndUpdate(item("Conjured", 10, 5)) // <- test zero branch
+
+      (1 to 5).foreach(_ => app.updateQuality())
+
+      app.items(0).quality shouldBe 0
+    }
 
   private def addItemsAndUpdate(items:Item*):GildedRose = {
     val app = new GildedRose(items.toArray)

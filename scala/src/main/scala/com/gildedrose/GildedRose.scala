@@ -9,7 +9,15 @@ package com.gildedrose
         && !items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
         if (items(i).quality > 0) {
           if (!items(i).name.equals("Sulfuras, Hand of Ragnaros")) {
-            items(i).quality = items(i).quality - 1
+            if (!items(i).name.equals("Conjured")){
+              items(i).quality = items(i).quality - 1
+            }else{
+              items(i).quality = if ( items(i).quality <= 1){
+                0
+              }else{
+                items(i).quality - 2
+              }
+            }
           }
         }
       } else {
