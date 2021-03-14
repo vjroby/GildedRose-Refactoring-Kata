@@ -45,7 +45,7 @@ object Quality {
 
 object GItem {
 
-  /** Holdes logic to update quality of an iten based on type
+  /** Holds logic to update quality of an item based on type
     * @param item to update quality
     * @return
     */
